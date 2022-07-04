@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" default-locale="en-US" version="1.0" demote-non-dropping-particle="sort-only" page-range-format="expanded">
+  <info>
+    <title>Russian GOST</title>
+    <id>https://github.com/stsouko/csl/blob/master/GOST</id>
+    <link href="https://github.com/stsouko/csl/raw/master/GOST" rel="self"/>
+    <link href="https://github.com/stsouko/csl/blob/master/README.md" rel="documentation"/>
+    <author>
+      <name>Ramil Nugmanov</name>
+      <email>stsouko@live.ru</email>
+    </author>
+    <category citation-format="numeric"/>
+    <category field="generic-base"/>
+    <summary>стиль заточен под ГОСТ</summary>
+    <published>2014-09-26T10:40:00+06:00</published>
+	<updated>2016-03-15T10:40:00+06:00</updated>
+    <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
+  </info>
+  <macro name="authors">
+    <names variable="translator author editor" delimiter=", ">
+      <label form="verb-short" suffix=" "/>
+      <name delimiter-precedes-last="always" et-al-min="13" et-al-use-first="13" initialize-with="." sort-separator=" "/>
+    </names>
+  </macro>
+  <macro name="author">
+    <names variable="author">
+      <name delimiter="" delimiter-precedes-last="never" et-al-min="1" et-al-use-first="1" et-al-use-last="true" initialize-with="." name-as-sort-order="all"/>
+    </names>
+  </macro>
+  <macro name="publisher">
+    <group delimiter=": ">
+      <text variable="publisher-place"/>
+      <text variable="publisher"/>
+    </group>
+  </macro>
+  <macro name="issued-year">
+    <date variable="issued">
+      <date-part name="year"/>
+    </date>
+  </macro>
+  <macro name="accessed">
+    <date variable="accessed">
+	  <date-part name="day" form="numeric-leading-zeros" suffix="."/>
+	  <date-part name="month" form="numeric-leading-zeros" suffix="."/>
+	  <date-part name="year"/>
+	</date>
+  </macro>
+  <citation collapse="citation-number">
+    <sort>
+      <key variable="citation-number"/>
+    </sort>
+    <layout prefix="[" suffix="]" delimiter=", ">
+      <text variable="citation-number"/>
+    </layout>
+  </citation>
+  <bibliography entry-spacing="0" second-field-align="flush">
+    <layout suffix=".">
+      <text variable="citation-number" suffix=". "/>
+      <choose>
+        <if type="patent">
+          <text variable="number" prefix="Пат. " suffix="."/>
+        </if>
+        <else>
+          <text macro="author"/>
+        </else>
+      </choose>
+      <text variable="title" prefix=" "/>
+      <text macro="authors" prefix=" / "/>
+      <choose>
+        <if type="patent">
+          <text value="; "/>
+        </if>
+        <else>
+          <text value=" // "/>
+        </else>
+      </choose>
+      <group delimiter=". – ">
+        <choose>
+          <if type="book" match="any">
+            <text macro="publisher"/>
+            <text macro="issued-year"/>
+			<choose>
+		      <if variable="genre" match="any">
+                <text variable="page" prefix="C. "/>
+	  		  </if>
+			  <else>
+                <text variable="page" prefix="P. "/>
+              </else>
+			</choose>
+          </if>
+          <else-if type="patent" match="any">
+            <text variable="publisher"/>
+            <text macro="issued-year" prefix="Опубл. "/>
+          </else-if>
+          <else-if type="webpage" match="any">
+            <text variable="container-title"/>
+            <text macro="issued-year"/>
+			<group delimiter=" ">
+              <text variable="URL" prefix="URL: "/>
+			  <text macro="accessed" prefix="(дата обращения: " suffix=")"/>
+			</group>
+		  </else-if>
+          <else-if type="article-journal" match="any">
+            <text variable="container-title" form="short"/>
+            <text macro="issued-year"/>
+			  <choose>
+			    <if variable="genre" match="any">
+				  <group delimiter=", ">
+                    <text variable="volume" prefix="Т. "/>
+				    <text variable="issue" prefix="Вып. "/>
+				  </group>
+				  <text variable="page" prefix="C. "/>
+				</if>
+				<else>
+				  <group delimiter=", ">
+                    <text variable="volume" prefix="V. "/>
+				    <text variable="issue" prefix="Iss. "/>
+				  </group>
+				  <text variable="page" prefix="P. "/>
+                </else>
+			  </choose>
+          </else-if>
+          <else-if type="paper-conference" match="any">
+            <text variable="container-title" suffix=". Тезисы докладов"/>
+            <group delimiter=", ">
+              <text variable="publisher-place"/>
+              <text macro="issued-year"/>
+            </group>
+            <text variable="page" prefix="С. "/>
+          </else-if>
+          <else>
+            <text variable="container-title" form="short"/>
+            <text macro="issued-year"/>
+          </else>
+        </choose>
+      </group>
+    </layout>
+  </bibliography>
+</style>
